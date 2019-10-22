@@ -48,7 +48,7 @@ export class MyApp {
     return (
       <Provider value={{foo: 'foo1'}}>
         <Consumer>
-          {({ foo, bar }) => (
+          {({ foo }) => (
             [
               <div>{foo}</div>,
               <Provider value={{foo: 'foo2'}}>
