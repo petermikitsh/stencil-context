@@ -5,6 +5,7 @@ A react-like context implementation for Stencil.js.
 ## Usage
 
 ```jsx
+import { Component, h } from '@stencil/core';
 import { createContext } from 'stencil-context';
 
 const defaultValue = {foo: 'bar'};
@@ -35,6 +36,7 @@ export class MyApp {
 You can define nested `Provider` and `Consumer`,
 
 ```jsx
+import { Component, h } from '@stencil/core';
 import { createContext } from 'stencil-context';
 
 const defaultValue = {foo: 'foo'};
