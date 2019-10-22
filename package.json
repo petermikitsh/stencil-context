@@ -19,7 +19,7 @@
     "clean": "rimraf .stencil ndist loader",
     "start": "stencil build --dev --watch --serve",
     "pretest": "npm run build",
-    "test": "stencil test --spec --e2e",
+    "test": "stencil test --spec --e2e --coverage --collectCoverageFrom=src/**/*.ts{,x}",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
