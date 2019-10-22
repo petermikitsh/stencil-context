@@ -1,5 +1,10 @@
 # `stencil-context`
 
+[![npm package][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![Dependencies Status][david-image]][david-url]
+
 A react-like context implementation for Stencil.js.
 
 ## Usage
@@ -68,3 +73,12 @@ export class MyApp {
   }
 }
 ```
+
+[npm-image]:https://img.shields.io/npm/v/stencil-context.svg
+[npm-url]:https://www.npmjs.com/package/stencil-context
+[travis-image]:https://travis-ci.org/petermikitsh/stencil-context.svg?branch=master
+[travis-url]:https://travis-ci.org/petermikitsh/stencil-context
+[david-image]:https://david-dm.org/petermikitsh/stencil-context/status.svg
+[david-url]:https://david-dm.org/petermikitsh/stencil-context
+[coveralls-image]:https://coveralls.io/repos/github/petermikitsh/stencil-context/badge.svg?branch=master
+[coveralls-url]:https://coveralls.io/github/petermikitsh/stencil-context?branch=master
