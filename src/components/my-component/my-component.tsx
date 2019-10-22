@@ -1,5 +1,4 @@
-import { Component, Element, h } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import { Component, Element, State, h } from '@stencil/core';
 import { createContext } from '../../utils/createContext';
 
 interface Context {
@@ -12,17 +11,14 @@ const { Provider, Consumer } = createContext({defaultValue: 'foo'});
   tag: 'my-component',
 })
 export class MyComponent {
-
-  @Element() el!: HTMLStencilElement;
-  secondLevel: Context = {defaultValue: 'bar'};
-  thirdLevel: Context = {defaultValue: 'baz'};
-
   constructor() {
     setTimeout(() => {
       this.secondLevel = {defaultValue: 'test'};
-      this.el.forceUpdate();
     }, 2000);
   }
+
+  @State() secondLevel: Context = {defaultValue: 'bar'};
+  @State() thirdLevel: Context = {defaultValue: 'baz'};
 
   render() {
     return [
