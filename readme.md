@@ -37,7 +37,7 @@ You can define nested `Provider` and `Consumer`,
 ```jsx
 import { createContext } from 'stencil-context';
 
-const defaultValue = {foo: 'foo', bar: 'bar'};
+const defaultValue = {foo: 'foo'};
 const { Provider, Consumer } = createContext(defaultValue);
 
 @Component({
@@ -46,15 +46,15 @@ const { Provider, Consumer } = createContext(defaultValue);
 export class MyApp {
   render() {
     return (
-      <Provider value={{foo: 'foo1', bar: 'bar1'}}>
+      <Provider value={{foo: 'foo1'}}>
         <Consumer>
           {({ foo, bar }) => (
             [
-              <div>{foo} {bar}</div>,
+              <div>{foo}</div>,
               <Provider value={{foo: 'foo2'}}>
                 <Consumer>
-                  {({ foo, bar }) => (
-                    <div>{foo} {bar}</div>
+                  {({ foo }) => (
+                    <div>{foo}</div>
                   )}
                 </Consumer>
               </Provider>
