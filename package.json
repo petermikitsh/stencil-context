@@ -16,7 +16,9 @@
   ],
   "scripts": {
     "build": "stencil build",
+    "clean": "rimraf .stencil ndist loader",
     "start": "stencil build --dev --watch --serve",
+    "pretest": "npm run build",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
@@ -27,7 +29,8 @@
     "@types/puppeteer": "1.20.2",
     "jest": "24.8.0",
     "jest-cli": "24.8.0",
-    "puppeteer": "1.20.0"
+    "puppeteer": "1.20.0",
+    "rimraf": "^3.0.0"
   },
   "license": "MIT"
 }
