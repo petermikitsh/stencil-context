@@ -8,13 +8,13 @@ export class StencilConsumer {
   @Prop() renderer: Function = () => null;
 
   private getContext() {
-    let parent = this.element.parentElement;
+    let parent = this.element.parentNode;
     while (parent) {
       const context = (parent as any).STENCIL_CONTEXT;
       if (context) {
         return context;
       }
-      parent = parent.parentElement;
+      parent = parent.parentNode;
     }
   }
   
