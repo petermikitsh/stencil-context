@@ -10,19 +10,12 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
+  interface MyComponent {}
+  interface StencilConsumer {
+    'renderer': Function;
+  }
+  interface StencilProvider {
+    'STENCIL_CONTEXT': { [key: string]: any };
   }
 }
 
@@ -34,29 +27,38 @@ declare global {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
   };
+
+  interface HTMLStencilConsumerElement extends Components.StencilConsumer, HTMLStencilElement {}
+  const HTMLStencilConsumerElement: {
+    prototype: HTMLStencilConsumerElement;
+    new (): HTMLStencilConsumerElement;
+  };
+
+  interface HTMLStencilProviderElement extends Components.StencilProvider, HTMLStencilElement {}
+  const HTMLStencilProviderElement: {
+    prototype: HTMLStencilProviderElement;
+    new (): HTMLStencilProviderElement;
+  };
   interface HTMLElementTagNameMap {
     'my-component': HTMLMyComponentElement;
+    'stencil-consumer': HTMLStencilConsumerElement;
+    'stencil-provider': HTMLStencilProviderElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
+  interface MyComponent {}
+  interface StencilConsumer {
+    'renderer'?: Function;
+  }
+  interface StencilProvider {
+    'STENCIL_CONTEXT'?: { [key: string]: any };
   }
 
   interface IntrinsicElements {
     'my-component': MyComponent;
+    'stencil-consumer': StencilConsumer;
+    'stencil-provider': StencilProvider;
   }
 }
 
@@ -67,6 +69,8 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+      'stencil-consumer': LocalJSX.StencilConsumer & JSXBase.HTMLAttributes<HTMLStencilConsumerElement>;
+      'stencil-provider': LocalJSX.StencilProvider & JSXBase.HTMLAttributes<HTMLStencilProviderElement>;
     }
   }
 }

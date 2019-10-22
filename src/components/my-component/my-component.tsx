@@ -1,32 +1,56 @@
-import { Component, Prop, h } from '@stencil/core';
-import { format } from '../../utils/utils';
+import { Component, Element, h } from '@stencil/core';
+import { HTMLStencilElement } from '@stencil/core/internal';
+import { createContext } from '../../utils/createContext';
+
+interface Context {
+  defaultValue: string;
+}
+
+const { Provider, Consumer } = createContext({defaultValue: 'foo'});
 
 @Component({
   tag: 'my-component',
-  styleUrl: 'my-component.css',
-  shadow: true
 })
 export class MyComponent {
-  /**
-   * The first name
-   */
-  @Prop() first: string;
 
-  /**
-   * The middle name
-   */
-  @Prop() middle: string;
+  @Element() el!: HTMLStencilElement;
+  secondLevel: Context = {defaultValue: 'bar'};
+  thirdLevel: Context = {defaultValue: 'baz'};
 
-  /**
-   * The last name
-   */
-  @Prop() last: string;
-
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
+  constructor() {
+    setTimeout(() => {
+      this.secondLevel = {defaultValue: 'test'};
+      this.el.forceUpdate();
+    }, 2000);
   }
 
   render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+    return [
+      <Provider>
+        <Consumer>
+          {({ defaultValue }: Context) => (
+            <div>
+              <div>1. {defaultValue}</div>
+              <Provider value={this.secondLevel}>
+                <Consumer>
+                  {({ defaultValue }: Context) => (
+                    <div>
+                      <div>2. {defaultValue}</div>
+                      <Provider value={this.thirdLevel}>
+                        <Consumer>
+                          {({ defaultValue }: Context) => (
+                            <div>3. {defaultValue}</div>
+                          )}
+                        </Consumer>
+                      </Provider>
+                    </div>
+                  )}
+                </Consumer>
+              </Provider>
+            </div>
+          )}
+        </Consumer>
+      </Provider>
+    ]
   }
 }
