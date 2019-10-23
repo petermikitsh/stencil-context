@@ -1,3 +1,12 @@
+## [0.0.2](https://github.com/petermikitsh/stencil-context/compare/v0.0.1...v0.0.2) (2019-10-23)
+
+
+### Bug Fixes
+
+* export createContext ([69f4c8f](https://github.com/petermikitsh/stencil-context/commit/69f4c8f0ece062294143e9d621aece75c04c7e31))
+
+
+
 ## 0.0.1 (2019-10-22)
 
 
