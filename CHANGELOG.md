@@ -1,3 +1,12 @@
+## [0.0.3](https://github.com/petermikitsh/stencil-context/compare/v0.0.2...v0.0.3) (2019-11-14)
+
+
+### Bug Fixes
+
+* re-render deeply nested consumers when context changes ([95ea974](https://github.com/petermikitsh/stencil-context/commit/95ea9744d5bab876f264c92cbb796cffa9ff57b1))
+
+
+
 ## [0.0.2](https://github.com/petermikitsh/stencil-context/compare/v0.0.1...v0.0.2) (2019-10-23)
 
 
