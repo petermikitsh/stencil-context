@@ -21,7 +21,7 @@ export class StencilConsumer {
     return this.promise;
   };
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.mountEmitter.emit(this.setContext);
   }
 

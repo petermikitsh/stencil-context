@@ -25,31 +25,31 @@ declare global {
 
 
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  const HTMLMyComponentElement: {
+  var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
   };
 
   interface HTMLMyComponentChildElement extends Components.MyComponentChild, HTMLStencilElement {}
-  const HTMLMyComponentChildElement: {
+  var HTMLMyComponentChildElement: {
     prototype: HTMLMyComponentChildElement;
     new (): HTMLMyComponentChildElement;
   };
 
   interface HTMLMyComponentGrandchildElement extends Components.MyComponentGrandchild, HTMLStencilElement {}
-  const HTMLMyComponentGrandchildElement: {
+  var HTMLMyComponentGrandchildElement: {
     prototype: HTMLMyComponentGrandchildElement;
     new (): HTMLMyComponentGrandchildElement;
   };
 
   interface HTMLStencilConsumerElement extends Components.StencilConsumer, HTMLStencilElement {}
-  const HTMLStencilConsumerElement: {
+  var HTMLStencilConsumerElement: {
     prototype: HTMLStencilConsumerElement;
     new (): HTMLStencilConsumerElement;
   };
 
   interface HTMLStencilProviderElement extends Components.StencilProvider, HTMLStencilElement {}
-  const HTMLStencilProviderElement: {
+  var HTMLStencilProviderElement: {
     prototype: HTMLStencilProviderElement;
     new (): HTMLStencilProviderElement;
   };
