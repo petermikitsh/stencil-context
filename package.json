@@ -20,7 +20,7 @@
     "coverage:report": "cat ./coverage/lcov.info | coveralls",
     "start": "stencil build --dev --watch --serve",
     "pretest": "npm run build",
-    "test": "stencil test --spec --e2e --coverage --collectCoverageFrom=src/**/*.ts{,x}",
+    "test": "stencil test --spec --e2e --coverage --collectCoverageFrom=src/components/stencil-*/*.ts{,x} --collectCoverageFrom=src/utils/**.ts{,x}",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"

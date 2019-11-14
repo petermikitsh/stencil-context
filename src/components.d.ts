@@ -11,8 +11,10 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface MyComponent {}
+  interface MyComponentChild {}
+  interface MyComponentGrandchild {}
   interface StencilConsumer {
-    'renderer': Function;
+    'renderer': any;
   }
   interface StencilProvider {
     'STENCIL_CONTEXT': { [key: string]: any };
@@ -28,6 +30,18 @@ declare global {
     new (): HTMLMyComponentElement;
   };
 
+  interface HTMLMyComponentChildElement extends Components.MyComponentChild, HTMLStencilElement {}
+  const HTMLMyComponentChildElement: {
+    prototype: HTMLMyComponentChildElement;
+    new (): HTMLMyComponentChildElement;
+  };
+
+  interface HTMLMyComponentGrandchildElement extends Components.MyComponentGrandchild, HTMLStencilElement {}
+  const HTMLMyComponentGrandchildElement: {
+    prototype: HTMLMyComponentGrandchildElement;
+    new (): HTMLMyComponentGrandchildElement;
+  };
+
   interface HTMLStencilConsumerElement extends Components.StencilConsumer, HTMLStencilElement {}
   const HTMLStencilConsumerElement: {
     prototype: HTMLStencilConsumerElement;
@@ -41,6 +55,8 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     'my-component': HTMLMyComponentElement;
+    'my-component-child': HTMLMyComponentChildElement;
+    'my-component-grandchild': HTMLMyComponentGrandchildElement;
     'stencil-consumer': HTMLStencilConsumerElement;
     'stencil-provider': HTMLStencilProviderElement;
   }
@@ -48,15 +64,21 @@ declare global {
 
 declare namespace LocalJSX {
   interface MyComponent {}
+  interface MyComponentChild {}
+  interface MyComponentGrandchild {}
   interface StencilConsumer {
-    'renderer'?: Function;
+    'onMountConsumer'?: (event: CustomEvent<any>) => void;
+    'renderer'?: any;
   }
   interface StencilProvider {
     'STENCIL_CONTEXT'?: { [key: string]: any };
+    'onMountConsumer'?: (event: CustomEvent<any>) => void;
   }
 
   interface IntrinsicElements {
     'my-component': MyComponent;
+    'my-component-child': MyComponentChild;
+    'my-component-grandchild': MyComponentGrandchild;
     'stencil-consumer': StencilConsumer;
     'stencil-provider': StencilProvider;
   }
@@ -69,6 +91,8 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+      'my-component-child': LocalJSX.MyComponentChild & JSXBase.HTMLAttributes<HTMLMyComponentChildElement>;
+      'my-component-grandchild': LocalJSX.MyComponentGrandchild & JSXBase.HTMLAttributes<HTMLMyComponentGrandchildElement>;
       'stencil-consumer': LocalJSX.StencilConsumer & JSXBase.HTMLAttributes<HTMLStencilConsumerElement>;
       'stencil-provider': LocalJSX.StencilProvider & JSXBase.HTMLAttributes<HTMLStencilProviderElement>;
     }

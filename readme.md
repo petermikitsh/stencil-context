@@ -13,7 +13,7 @@ A react-like context implementation for Stencil.js.
 import { Component, h } from '@stencil/core';
 import { createContext } from 'stencil-context';
 
-const defaultValue = {foo: 'bar'};
+const defaultValue = { foo: 'bar' };
 
 const { Provider, Consumer } = createContext(defaultValue);
 
@@ -24,16 +24,11 @@ export class MyApp {
   render() {
     return (
       <Provider>
-        <Consumer>
-          {({ foo }) => (
-            <div>{foo}</div>
-          )}
-        </Consumer>
+        <Consumer>{({ foo }) => <div>{foo}</div>}</Consumer>
       </Provider>
-    )
+    );
   }
 }
-
 ```
 
 ## Usage (Advanced)
@@ -44,7 +39,7 @@ You can define nested `Provider` and `Consumer`,
 import { Component, h } from '@stencil/core';
 import { createContext } from 'stencil-context';
 
-const defaultValue = {foo: 'foo'};
+const defaultValue = { foo: 'foo' };
 const { Provider, Consumer } = createContext(defaultValue);
 
 @Component({
@@ -53,32 +48,38 @@ const { Provider, Consumer } = createContext(defaultValue);
 export class MyApp {
   render() {
     return (
-      <Provider value={{foo: 'foo1'}}>
+      <Provider value={{ foo: 'foo1' }}>
         <Consumer>
-          {({ foo }) => (
-            [
-              <div>{foo}</div>,
-              <Provider value={{foo: 'foo2'}}>
-                <Consumer>
-                  {({ foo }) => (
-                    <div>{foo}</div>
-                  )}
-                </Consumer>
-              </Provider>
-            ]
-          )}
+          {({ foo }) => [
+            <div>{foo}</div>,
+            <Provider value={{ foo: 'foo2' }}>
+              <Consumer>{({ foo }) => <div>{foo}</div>}</Consumer>
+            </Provider>,
+          ]}
         </Consumer>
       </Provider>
-    )
+    );
   }
 }
 ```
 
-[npm-image]:https://img.shields.io/npm/v/stencil-context.svg
-[npm-url]:https://www.npmjs.com/package/stencil-context
-[travis-image]:https://travis-ci.org/petermikitsh/stencil-context.svg?branch=master
-[travis-url]:https://travis-ci.org/petermikitsh/stencil-context
-[david-image]:https://david-dm.org/petermikitsh/stencil-context/status.svg
-[david-url]:https://david-dm.org/petermikitsh/stencil-context
-[coveralls-image]:https://coveralls.io/repos/github/petermikitsh/stencil-context/badge.svg?branch=master
-[coveralls-url]:https://coveralls.io/github/petermikitsh/stencil-context?branch=master
+## Note
+
+You may see the error message below when defining JSX children that are functions (e.g., when using Consumer).
+
+This usage is normal; the message is a bug.
+
+```
+[STENCIL-DEV-MODE] vNode passed as children has unexpected type.
+Make sure it's using the correct h() function.
+Empty objects can also be the cause, look for JSX comments that became objects.
+```
+
+[npm-image]: https://img.shields.io/npm/v/stencil-context.svg
+[npm-url]: https://www.npmjs.com/package/stencil-context
+[travis-image]: https://travis-ci.org/petermikitsh/stencil-context.svg?branch=master
+[travis-url]: https://travis-ci.org/petermikitsh/stencil-context
+[david-image]: https://david-dm.org/petermikitsh/stencil-context/status.svg
+[david-url]: https://david-dm.org/petermikitsh/stencil-context
+[coveralls-image]: https://coveralls.io/repos/github/petermikitsh/stencil-context/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/petermikitsh/stencil-context?branch=master

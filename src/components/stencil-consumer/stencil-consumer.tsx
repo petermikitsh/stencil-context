@@ -1,24 +1,38 @@
-import { Component, Prop, Element } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, State } from '@stencil/core';
 
 @Component({
-  tag: 'stencil-consumer'
+  tag: 'stencil-consumer',
 })
 export class StencilConsumer {
-  @Element() private element: HTMLElement;
-  @Prop() renderer: Function = () => null;
+  @Prop() renderer: any;
+  @State() context: any;
+  @Event({ eventName: 'mountConsumer' }) mountEmitter: EventEmitter;
+  @State() promise: Promise<any>;
+  @State() resolvePromise: any;
 
-  private getContext() {
-    let parent = this.element.parentNode;
-    while (parent) {
-      const context = (parent as any).STENCIL_CONTEXT;
-      if (context) {
-        return context;
-      }
-      parent = parent.parentNode;
-    }
+  constructor() {
+    this.promise = new Promise((resolve) => {
+      this.resolvePromise = resolve;
+    });
   }
-  
+
+  setContext = async (context: any) => {
+    this.context = context;
+    return this.promise;
+  };
+
+  componentDidLoad() {
+    this.mountEmitter.emit(this.setContext);
+  }
+
+  componentDidUnload() {
+    this.resolvePromise();
+  }
+
   render() {
-    return this.renderer(this.getContext());
+    if (!this.context) {
+      return null;
+    }
+    return this.renderer(this.context);
   }
 }

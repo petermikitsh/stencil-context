@@ -1,11 +1,11 @@
-import { Component, Element, State, h } from '@stencil/core';
+import { Component, State, h } from '@stencil/core';
 import { createContext } from '../../utils/createContext';
+
+const { Provider, Consumer } = createContext({ defaultValue: 'first-level' });
 
 interface Context {
   defaultValue: string;
 }
-
-const { Provider, Consumer } = createContext({defaultValue: 'foo'});
 
 @Component({
   tag: 'my-component',
@@ -13,40 +13,24 @@ const { Provider, Consumer } = createContext({defaultValue: 'foo'});
 export class MyComponent {
   constructor() {
     setTimeout(() => {
-      this.secondLevel = {defaultValue: 'test'};
+      this.firstLevel = { defaultValue: 'first-level-updated-2sec' };
     }, 2000);
   }
 
-  @State() secondLevel: Context = {defaultValue: 'bar'};
-  @State() thirdLevel: Context = {defaultValue: 'baz'};
+  @State() firstLevel: Context = { defaultValue: 'first-level' };
 
   render() {
-    return [
-      <Provider>
+    return (
+      <Provider value={this.firstLevel}>
         <Consumer>
           {({ defaultValue }: Context) => (
             <div>
               <div>1. {defaultValue}</div>
-              <Provider value={this.secondLevel}>
-                <Consumer>
-                  {({ defaultValue }: Context) => (
-                    <div>
-                      <div>2. {defaultValue}</div>
-                      <Provider value={this.thirdLevel}>
-                        <Consumer>
-                          {({ defaultValue }: Context) => (
-                            <div>3. {defaultValue}</div>
-                          )}
-                        </Consumer>
-                      </Provider>
-                    </div>
-                  )}
-                </Consumer>
-              </Provider>
+              <my-component-child />
             </div>
           )}
         </Consumer>
       </Provider>
-    ]
+    );
   }
 }

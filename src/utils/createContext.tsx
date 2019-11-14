@@ -1,32 +1,40 @@
 import { FunctionalComponent, h } from '@stencil/core';
 
-export const createContext = <T extends {[key: string]: any}>(defaultValue: T) => {
+export const createContext = <T extends { [key: string]: any }>(
+  defaultValue: T,
+) => {
+  const Provider: FunctionalComponent<{
+    value?: T;
+  }> = (props, children) => {
+    let resolvedValue: T = (props && props.value) || defaultValue;
 
-  const Provider: FunctionalComponent<{value?: T}> = (props, children) => {
-    let resolvedValue: T = props && props.value || defaultValue;
-
-    const providerRender = () => (
+    return (
       <stencil-provider STENCIL_CONTEXT={resolvedValue}>
         {children}
       </stencil-provider>
     );
-
-    return providerRender();
-  }
+  };
 
   const Consumer: FunctionalComponent = (props, children) => {
-    // First child is a function.
-    const firstChild: any = children[0];
+    if (!children.length) {
+      return console.warn(
+        '[stencil-context] You must pass <Consumer> a single child that is a Function.',
+      );
+    }
 
-    const consumerRender = () => (
-      <stencil-consumer renderer={firstChild} />
-    );
+    const renderer = children[0];
 
-    return consumerRender();
-  }
+    if (!(renderer instanceof Function)) {
+      return console.warn(
+        '[stencil-context] <Consumer> first child must be a Function.',
+      );
+    }
+
+    return <stencil-consumer renderer={renderer} />;
+  };
 
   return {
     Provider,
-    Consumer
-  }
-}
+    Consumer,
+  };
+};
